@@ -5,9 +5,9 @@ Contained are the code and data needed to re-create the analyses and figures in 
 <br />   <br />
 
 Des Marais, D. L., Guerrero, R., Lasky, J. R., & Scarpino, S. V. (2016). Topological features of gene regulatory networks predict patterns of natural diversity in environmental response. bioRxiv, 080804.
+<br />   <br />
 
 *Data*
-<br />   <br />
 
 [Cubillos ASE](http://www.plantcell.org/content/26/11/4298.short)
 Cubillos, F. A., Stegle, O., Grondin, C., Canut, M., Tisné, S., Gy, I., & Loudet, O. (2014). Extensive cis-regulatory variation robust to environmental perturbation in Arabidopsis. The Plant Cell, 26(11), 4298-4310.
@@ -49,6 +49,5 @@ Bechtold, U., Penfold, C. A., Jenkins, D. J., Legaie, R., Moore, J. D., Lawson, 
 Des Marais, D. L., Guerrero, R., Lasky, J. R., & Scarpino, S. V. (2016). Topological features of gene regulatory networks predict patterns of natural diversity in environmental response. bioRxiv, 080804.
 
 *Legal*
-<br />   <br />
  
 The data aren't all ours, but the code is (or at least the new bits). Obviously both are provided without any guarantee about accuracy, quality, or the impact factor of the journal you can publish them in.  Please cite the appropriate paper for each data set and the appropriate paper for any internal code. [*License* - were applicable - GPL (>= 3.0)].
