@@ -2,10 +2,9 @@ Contained are the code and data needed to re-create the analyses and figures in 
 " target="_blank"><font color = "#b2182b">Des Marais et al. (2016)</font></a></h4>  If you use any of the code, figures, analyses, or ideas, please cite the preprint below.  If you use any of the data, please cite the appropriate manuscript(s).
 
 *Citation* 
-<br />   <br />
 
 Des Marais, D. L., Guerrero, R., Lasky, J. R., & Scarpino, S. V. (2016). Topological features of gene regulatory networks predict patterns of natural diversity in environmental response. bioRxiv, 080804.
-<br />   <br />
+
 
 *Data*
 
