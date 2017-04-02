@@ -1,4 +1,4 @@
-Contained are the code and data needed to re-create the analyses and figures in <h4><a href="http://biorxiv.org/content/early/2016/10/30/080804
+Contained are the code and data needed to re-create the analyses and figures in: <h4><a href="http://biorxiv.org/content/early/2016/10/30/080804
 " target="_blank"><font color = "#b2182b">Des Marais et al. (2016)</font></a></h4>  If you use any of the code, figures, analyses, or ideas, please cite the preprint below.  If you use any of the data, please cite the appropriate manuscript(s).
 
 *Citation* 
