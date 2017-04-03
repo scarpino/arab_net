@@ -1,5 +1,3 @@
-rm(list=ls())
-
 #libraries
 library(igraph)
 library(binom)
@@ -96,7 +94,7 @@ ord.dry <- order(scores.dry, decreasing = TRUE)
 ord.cold <- order(scores.cold, decreasing = TRUE)
 out.scores <- data.frame(gen.unq[ord.dry[1:10]], scores.dry[ord.dry[1:10]], gen.unq[ord.cold[1:10]], scores.cold[ord.cold[1:10]])
 colnames(out.scores) <- c("Dry.hits", "Dry.Connex", "Cold.hits", "Cold.connex")
-write.csv(out.scores, file = "gene_connex_hits.csv", row.names = FALSE, quote = FALSE)
+#write.csv(out.scores, file = "gene_connex_hits.csv", row.names = FALSE, quote = FALSE)
 
 layout(matrix(1:2, nrow = 1))
 hist(log(scores.dry), xaxt = "n", xlab = "Number of connects to drought GxE", freq = F, ylim = c(0,1), main = "Drought GxE", col = cols.com.plot[2])
