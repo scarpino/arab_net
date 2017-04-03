@@ -49,8 +49,8 @@ Des Marais, D. L., Guerrero, R., Lasky, J. R., & Scarpino, S. V. (2016). Topolog
 
 *Legal*
  
-The data aren't all ours, but the code is (or at least the new bits).  Obviously all code, data, etc. are provided without any guarantee about accuracy, quality, or the impact factor of the journal you can publish them in.  Please cite the appropriate paper for each data set and the appropriate paper for any internal code (e.g., if you use any internally called R libraries). 
+The data aren't all ours, but we did write some of the code.  Obviously all code, data, etc. are provided without any guarantee about accuracy, quality, or the impact factor of the journal you can publish them in.  Please cite the appropriate paper for each data set and the appropriate paper for any internal code (e.g., if you use any R libraries). 
 
 *License* 
 
-Where applicable - GPL (>= 3.0)].
+GPL (>= 3.0), where applicable.
