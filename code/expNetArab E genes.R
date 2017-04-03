@@ -1,5 +1,3 @@
-rm(list=ls())
-
 #libraries
 library(igraph)
 
@@ -62,8 +60,8 @@ for(i in 2:ncol(dat.test)){
 }
 
 #overlap of dry and cold genes
-gd <- as.character(read.csv('DaveAllTDrought.csv')[,1])
-gc <- as.character(read.csv('HannahAllTCold.csv')[,1])
+gd <- as.character(read.csv('../data/DaveAllTDrought.csv')[,1])
+gc <- as.character(read.csv('../data/HannahAllTCold.csv')[,1])
 
 use <- which(gd %in% gc)
 
@@ -100,7 +98,7 @@ for(i in 2:ncol(dat.test)){
 
 
 #E vs. GxE
-gxe_cold <- as.character(read.csv('HannahAllGxTCold.csv')[,1])
+gxe_cold <- as.character(read.csv('../data/HannahAllGxTCold.csv')[,1])
 use_gd <- which(dat.out[,1] %in% gd)
 use_gc <- which(dat.out[,1] %in% gc)
 use_gxe_c <- which(dat.out[,1] %in% gxe_cold)
@@ -184,7 +182,7 @@ if(doALL==TRUE){
 		dat.out<-data.frame(names(bet),deg,bet,close,eigen$vector)
 		dat.out[,1]<-as.character(dat.out[,1])
 		colnames(dat.out)<-c('gene','degree','betweenness','closeness','eigenvector')
-	write.csv(dat.out,file=paste0(nets[n],' geneExpressionNet.csv'),row.names=FALSE)
+	#write.csv(dat.out,file=paste0(nets[n],' geneExpressionNet.csv'),row.names=FALSE)
 		
 		#stats
 		dat.test<-dat.out[-which(dat.out$betweenness==0),]
@@ -212,8 +210,8 @@ if(doALL==TRUE){
 		}#end for i
 		dev.off()
 	}#end for n
-	write.csv(P,file=paste0(nets[n],'_P.pdf'))
-	write.csv(E,file=paste0(nets[n],'_E.pdf'))
+	#write.csv(P,file=paste0(nets[n],'_P.pdf'))
+	#write.csv(E,file=paste0(nets[n],'_E.pdf'))
 	
 	gils<-c(4, 6, 12, 18, 19, 29,40,46,47,51,55, 59,66,71,75,77,80,82,86) #stress gils
 	#gils.leaf = c(6,12,18,19,29, 40, 46,47,51,55,59,75,77,80,82,86)

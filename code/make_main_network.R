@@ -1,5 +1,3 @@
-rm(list=ls())
-
 #libraries
 library(igraph)
 
@@ -25,4 +23,4 @@ eigen <- evcent(gr)
 dat.out <- data.frame(names(bet),deg,bet,close,eigen$vector)
 dat.out[,1] <- as.character(dat.out[,1])
 colnames(dat.out) <- c('gene','degree','betweenness','closeness','eigenvector')
-write.csv(dat.out,file='gene_expression_net_feltus_main.csv',row.names=FALSE)
+#write.csv(dat.out,file='gene_expression_net_feltus_main.csv',row.names=FALSE)

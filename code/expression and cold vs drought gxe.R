@@ -1,5 +1,3 @@
-rm(list=ls())
-
 #libraries
 library(igraph)
 library(glmnet)
@@ -48,7 +46,7 @@ IND2[which(exp$ID %in% dry[,1])] <- "dry"
 
 t.test(log(exp$Expression.Level) ~ IND2)
 
-dat.test<- read.csv("~/Dropbox (EmergentEpidemicsLab)/arab/arab shared/New Analyses 2.2017/gene_expression_net_feltus_main.csv")
+dat.test<- read.csv("../data/gene_expression_net_feltus_main.csv")
 
 genes <- as.character(exp$ID[which(IND2 == "cold")])
 

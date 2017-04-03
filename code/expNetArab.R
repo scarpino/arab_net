@@ -1,11 +1,9 @@
-rm(list=ls())
-
 #libraries
 library(igraph)
 
 #global params
-doALL<-FALSE
-geneSet<- 'cold' #'dry' 
+doALL<-TRUE
+geneSet<- 'dry' #'cold' 
 
 #data
 dat<-read.table('../data/Feltus_etal_AdditionalFile3_EdgeLists.txt', header=TRUE)
@@ -41,9 +39,9 @@ eigen<-evcent(gr)
 dat.out<-data.frame(names(bet),deg,bet,close,eigen$vector)
 dat.out[,1]<-as.character(dat.out[,1])
 colnames(dat.out)<-c('gene','degree','betweenness','closeness','eigenvector')
-write.csv(dat.out,file='geneExpressionNet.csv',row.names=FALSE)
+#write.csv(dat.out,file='geneExpressionNet.csv',row.names=FALSE)
 
-null_set <- read.csv('10_2011_freezing_ath1_AllAcc.csv')[,1]
+null_set <- read.csv('../data/10_2011_freezing_ath1_AllAcc.csv')[,1]
 null_set <-  unlist(strsplit(as.character(null_set), '_'))
 null_set <- null_set[seq(1,length(null_set), by = 2)]
 
@@ -74,7 +72,7 @@ for(i in 2:ncol(dat.test)){
 
 if(doALL==TRUE){
 	nets<-unique(dat[,1])
-	setwd(paste0('allNets/', geneSet,'/'))
+	#setwd(paste0('allNets/', geneSet,'/'))
 	P<-matrix(NA,ncol=4,nrow=length(nets))
 	E<-matrix(NA,ncol=4,nrow=length(nets))
 	colnames(P)<-c('degree','betweenness','closeness','eigenvector')
@@ -101,7 +99,7 @@ if(doALL==TRUE){
 		dat.out<-data.frame(names(bet),deg,bet,close,eigen$vector)
 		dat.out[,1]<-as.character(dat.out[,1])
 		colnames(dat.out)<-c('gene','degree','betweenness','closeness','eigenvector')
-	write.csv(dat.out,file=paste0(nets[n],' geneExpressionNet.csv'),row.names=FALSE)
+	#write.csv(dat.out,file=paste0(nets[n],' geneExpressionNet.csv'),row.names=FALSE)
 		
 		#stats
 		#dat.test<-dat.out[-which(dat.out$betweenness==0),]
@@ -137,8 +135,9 @@ if(doALL==TRUE){
 		}#end for i
 		#dev.off()
 	}#end for n
-	dat.out <- data.frame(as.character(nets),E,P, V_ge, V_non_ge, n_ge)
-	write.csv(dat.out,file=paste0(geneSet,'_GILS.csv'))
+	dat.out <- data.frame(as.character(nets),E, P, V_ge, V_non_ge, n_ge)
+	colnames(dat.out)[c(1,6:9)] <- c("Network", "degree_pval", "betweenness_pval", "closeness_pval", "eigenvector_pval")
+	#write.csv(dat.out,file=paste0(geneSet,'_GILS.csv'))
 	
 	w <- n_ge[-1,"eigenvector"]/sum(n_ge[-1,"eigenvector"])
 	sum(V_ge[-1,"eigenvector"]*w)
@@ -154,11 +153,11 @@ if(doALL==TRUE){
 	#gils.leaf = c(6,12,18,19,29, 40, 46,47,51,55,59,75,77,80,82,86)
 	gils<-paste0('GIL',gils)
 	use.e<-which(nets%in%gils)
-	pdf('gilSummary.pdf')
+	#pdf('gilSummary.pdf')
 	layout(matrix(1:4,ncol=2))
 	for(e in 1:ncol(E)){
 		hist(E[use.e,e],breaks=10,main=paste0(colnames(P)[e],' prop sig = ',round(length(E[use.e,e][which(P[use.e,e]<0.05)])/length(E[use.e,e]),3)),col='#00000050',xlab='mean change GE - nonGE')
-		hist(E[use.e,e][which(P[use.e,e]<0.05)],add=TRUE,col='#000000',breaks=10)
+		#hist(E[use.e,e][which(P[use.e,e]<0.05)],add=TRUE,col='#000000',breaks=10)
 	}#end for e
-	dev.off()
+	#dev.off()
 }#end if doAll

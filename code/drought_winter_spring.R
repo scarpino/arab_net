@@ -1,5 +1,3 @@
-rm(list=ls())
-
 #libraries
 library(igraph)
 

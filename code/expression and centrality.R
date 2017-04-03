@@ -1,5 +1,3 @@
-rm(list=ls())
-
 #libraries
 library(igraph)
 library(glmnet)
@@ -34,7 +32,7 @@ dup <- model.matrix(~as.factor(x4[-rm]))[,-1] #dummy variables for WGD
 reg.dat <- cbind(log(x1[-rm]), log(x2[-rm]), x3[-rm], dup)
 colnames(reg.dat) <- c("Ka.KS", "Exp", "Tissue", "non_WGD", "Recent_WGD", "Singleton")
 
-#standarizing (we don't really need to do this because glmnet standarizes, but it reports the un-standardized coefficients, so this makes it easier to compare)
+#standardizing (we don't really need to do this because glmnet standarizes, but it reports the un-standardized coefficients, so this makes it easier to compare)
 reg.dat[,1:3] <- apply(reg.dat[,1:3], 2, function(x) return(x/sd(x)))
 
 y.reg <- log(y[-rm])
@@ -45,7 +43,7 @@ alpha <- 1
 # alpha = 0.5 corresponds to elastic net
 # alpha = 0 gives ridge regression (l2 penalty), which will not do any model selection, merely shrinkage
 
-#picking lambda (strenght of penalty by cross validation)
+#picking lambda (strength of penalty by cross validation)
 cv_linear_model <- cv.glmnet(x           = reg.dat,
                              y           =  y.reg,
                              family      = 'gaussian',
