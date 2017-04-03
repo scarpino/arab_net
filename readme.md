@@ -1,5 +1,5 @@
 Contained are the code and data needed to re-create the analyses and figures in: <h4><a href="http://biorxiv.org/content/early/2016/10/30/080804
-" target="_blank"><font color = "#b2182b">Des Marais et al. (2016)</font></a></h4>  If you use any of the code, figures, analyses, or ideas, please cite the preprint below.  If you use any of the data, please cite the appropriate manuscript(s).
+" target="_blank"><font color = "#b2182b">Des Marais et al. (2016)</font></a></h4>  If you use any of the code, figures, analyses, or novel ideas, please cite the preprint below.  If you use any of the data, please cite the appropriate manuscript(s).
 
 *Citation* 
 
@@ -49,4 +49,8 @@ Des Marais, D. L., Guerrero, R., Lasky, J. R., & Scarpino, S. V. (2016). Topolog
 
 *Legal*
  
-The data aren't all ours, but the code is (or at least the new bits). Obviously both are provided without any guarantee about accuracy, quality, or the impact factor of the journal you can publish them in.  Please cite the appropriate paper for each data set and the appropriate paper for any internal code. [*License* - where applicable - GPL (>= 3.0)].
+The data aren't all ours, but the code is (or at least the new bits).  Obviously all code, data, etc. are provided without any guarantee about accuracy, quality, or the impact factor of the journal you can publish them in.  Please cite the appropriate paper for each data set and the appropriate paper for any internal code (e.g., if you use any internally called R libraries). 
+
+*License* 
+
+Where applicable - GPL (>= 3.0)].
