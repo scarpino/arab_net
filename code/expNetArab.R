@@ -3,7 +3,7 @@ library(igraph)
 
 #global params
 doALL<-TRUE
-geneSet<- 'dry' #'cold' 
+geneSet<- 'cold' #'dry' 
 
 #data
 dat<-read.table('../data/Feltus_etal_AdditionalFile3_EdgeLists.txt', header=TRUE)
@@ -139,7 +139,7 @@ if(doALL==TRUE){
 	}#end for n
 	dat.out <- data.frame(as.character(nets),E, P, V_ge, V_non_ge, n_ge)
 	colnames(dat.out)[c(1,6:9)] <- c("Network", "degree_pval", "betweenness_pval", "closeness_pval", "eigenvector_pval")
-	#write.csv(dat.out,file=paste0(geneSet,'_GILS.csv'))
+	#write.csv(dat.out[,1:9],file=paste0(geneSet,'_GILS.csv'))
 	
 	w <- n_ge[-1,"eigenvector"]/sum(n_ge[-1,"eigenvector"])
 	sum(V_ge[-1,"eigenvector"]*w)
