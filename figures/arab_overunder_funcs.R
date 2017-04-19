@@ -15,6 +15,7 @@ pfish <- function( comm, treat_in_comm, treat_n, total_n){
 }
 
 comms_raw <- read.csv("../data/comm_props_raw_21Jan16.csv")
+comms_raw <- transmute(comms_raw, number = 1:dim(comms_raw)[1], size=full_raw, prop= full_prop, Drought=dry_raw, Cold=cold_raw)
 
 n_genes <- sum(comms_raw$size)
 n_dry <- sum(comms_raw$Drought)

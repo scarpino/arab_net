@@ -23,5 +23,5 @@ for(i in 2:ncol(dat.test)){
     len1 <- c(len1,met.j)
   }
   p.i <- round(length(which(len1>obs.i)),4)/j
-  boxplot(dat.i~id,main=paste0(colnames(dat.test)[i],' p value = ',p.i))
+  boxplot(dat.i~id,main=paste0(colnames(dat.test)[i],' p value = ',p.i), range = 0)
 }

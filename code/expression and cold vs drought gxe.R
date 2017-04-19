@@ -37,33 +37,57 @@ length(which(abs(sim_mets) > abs(metric)))/i
 
 #re-sampling cold
 prob <- exp$Expression.Level/by(exp$Expression.Level, IND, sum)[1]
-
-use <- sample(which(IND == "cold"), size = 900, prob = 1/prob[which(IND == "cold")])
-
-IND2 <- rep(NA, nrow(exp))
-IND2[use] <- "cold"
-IND2[which(exp$ID %in% dry[,1])] <- "dry"
-
-t.test(log(exp$Expression.Level) ~ IND2)
-
 dat.test<- read.csv("../data/gene_expression_net_feltus_main.csv")
 
-genes <- as.character(exp$ID[which(IND2 == "cold")])
+t_test_stats <- rep(NA, 1000)
+pval_deg <- rep(NA, 1000)
+pval_eigen <- rep(NA, 1000)
+diff_deg <- rep(NA, 1000)
+diff_eigen <- rep(NA, 1000)
+for(n in 1:1000){
 
-layout(matrix(1:4,ncol=2))
-for(i in 2:ncol(dat.test)){
-  dat.i <- dat.test[which(is.finite(log(dat.test[,i]))==TRUE),]
-  use <- which(dat.i[,1] %in% genes)
-  id <- rep('nonGE',nrow(dat.i))
-  id[use] <- 'GE'
-  dat.i <- log(dat.i[,i])
-  obs.i <- abs(mean(dat.i[use])-mean(dat.i[-use]))
-  len1 <- c()
-  for(j in 1:1000){
-    use.j <- sample(1:length(id), length(use), replace=TRUE)
-    met.j <- abs(mean(dat.i[use.j])-mean(dat.i[-use.j]))
-    len1 <- c(len1,met.j)
+  use <- sample(which(IND == "cold"), size = 750, prob = 1/prob[which(IND == "cold")])
+  
+  IND2 <- rep(NA, nrow(exp))
+  IND2[use] <- "cold"
+  IND2[which(exp$ID %in% dry[,1])] <- "dry"
+  
+  test.i <- t.test(log(exp$Expression.Level) ~ IND2)
+  t_test_stats[n] <- test.i$p.value
+  
+  genes <- as.character(exp$ID[which(IND2 == "cold")])
+  
+  layout(matrix(1:4,ncol=2))
+  for(i in c(2,5)){
+    dat.i <- dat.test[which(is.finite(log(dat.test[,i]))==TRUE),]
+    use <- which(dat.i[,1] %in% genes)
+    id <- rep('nonGE',nrow(dat.i))
+    id[use] <- 'GE'
+    dat.i <- log(dat.i[,i])
+    obs.i <- abs(mean(dat.i[use])-mean(dat.i[-use]))
+    len1 <- c()
+    for(j in 1:1000){
+      use.j <- sample(1:length(id), length(use), replace=TRUE)
+      met.j <- abs(mean(dat.i[use.j])-mean(dat.i[-use.j]))
+      len1 <- c(len1,met.j)
+    }
+    p.i <- round(length(which(len1>obs.i)),4)/j
+    if(i == 2){
+      pval_deg[n] <- p.i
+      diff_deg[n] <- met.j
+    }
+    if(i == 5){
+      pval_eigen[n] <- p.i
+      diff_eigen[n] <- met.j
+    }
+    #boxplot(dat.i~id,main=paste0(colnames(dat.test)[i],' p value = ',p.i))
   }
-  p.i <- round(length(which(len1>obs.i)),4)/j
-  boxplot(dat.i~id,main=paste0(colnames(dat.test)[i],' p value = ',p.i))
 }
+
+summary(t_test_stats)
+summary(exp(diff_deg))
+summary(diff_eigen)
+summary(pval_eigen)
+summary(pval_deg)
+1 - length(which(pval_eigen < 0.05))/n
+1 - length(which(pval_deg < 0.05))/n

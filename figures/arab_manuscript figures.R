@@ -2,14 +2,13 @@
 library(igraph)
 library(binom)
 
-
 #running analyses
 sizes <- c(1.5,3)
 do_com_test <- FALSE
 cut_sig <- 0.03 #difference in gene proportions for sig. communities.
 
 source("arab acc funcs.R")
-
+source("arab_overunder_funcs.R")
 #Figure 1
 quartz(width = 5, height = 5)
 par(mar=c(2,4,1,0.2))
