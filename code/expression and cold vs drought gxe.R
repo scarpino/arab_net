@@ -35,59 +35,95 @@ for(i in 1:1000){
 
 length(which(abs(sim_mets) > abs(metric)))/i
 
-#re-sampling cold
-prob <- exp$Expression.Level/by(exp$Expression.Level, IND, sum)[1]
+#testing for expression
 dat.test<- read.csv("../data/gene_expression_net_feltus_main.csv")
+genes <- as.character(exp$ID[which(IND == "cold")])
 
-t_test_stats <- rep(NA, 1000)
-pval_deg <- rep(NA, 1000)
-pval_eigen <- rep(NA, 1000)
-diff_deg <- rep(NA, 1000)
-diff_eigen <- rep(NA, 1000)
-for(n in 1:1000){
-
-  use <- sample(which(IND == "cold"), size = 750, prob = 1/prob[which(IND == "cold")])
-  
-  IND2 <- rep(NA, nrow(exp))
-  IND2[use] <- "cold"
-  IND2[which(exp$ID %in% dry[,1])] <- "dry"
-  
-  test.i <- t.test(log(exp$Expression.Level) ~ IND2)
-  t_test_stats[n] <- test.i$p.value
-  
-  genes <- as.character(exp$ID[which(IND2 == "cold")])
-  
-  layout(matrix(1:4,ncol=2))
-  for(i in c(2,5)){
-    dat.i <- dat.test[which(is.finite(log(dat.test[,i]))==TRUE),]
-    use <- which(dat.i[,1] %in% genes)
-    id <- rep('nonGE',nrow(dat.i))
-    id[use] <- 'GE'
-    dat.i <- log(dat.i[,i])
-    obs.i <- abs(mean(dat.i[use])-mean(dat.i[-use]))
-    len1 <- c()
-    for(j in 1:1000){
-      use.j <- sample(1:length(id), length(use), replace=TRUE)
-      met.j <- abs(mean(dat.i[use.j])-mean(dat.i[-use.j]))
-      len1 <- c(len1,met.j)
-    }
-    p.i <- round(length(which(len1>obs.i)),4)/j
-    if(i == 2){
-      pval_deg[n] <- p.i
-      diff_deg[n] <- met.j
-    }
-    if(i == 5){
-      pval_eigen[n] <- p.i
-      diff_eigen[n] <- met.j
-    }
-    #boxplot(dat.i~id,main=paste0(colnames(dat.test)[i],' p value = ',p.i))
-  }
+#logistic regression
+rep_0 <- function(x){
+  x[which(x == 0)] <- NA
+  return(x)
 }
 
-summary(t_test_stats)
-summary(exp(diff_deg))
-summary(diff_eigen)
-summary(pval_eigen)
-summary(pval_deg)
-1 - length(which(pval_eigen < 0.05))/n
-1 - length(which(pval_deg < 0.05))/n
+dat.reg <- dat.test
+dat.reg$expression <- exp$Expression.Level[match(dat.reg$gene, exp$ID)]
+dat.reg <- dat.reg[,-1]
+
+dat.reg <- apply(dat.reg, 2, rep_0)
+dat.reg <- log(dat.reg)
+GxE_ind <- rep(0, nrow(dat.reg)) 
+GxE_ind[which(dat.test$gene %in% genes)] <- 1
+
+m <- glm(GxE_ind~-1 + dat.reg)
+summary(m)
+
+#write.csv(summary(m)$coefficients, file = "expression_regression.csv")
+
+#resampling
+run_resample <- FALSE
+if(run_resample == TRUE){
+  t_test_stats <- rep(NA, 1000)
+  pval_deg <- rep(NA, 1000)
+  pval_eigen <- rep(NA, 1000)
+  ge_deg <- rep(NA, 1000)
+  ge_eigen <- rep(NA, 1000)
+  non_ge_deg <- rep(NA, 1000)
+  non_ge_eigen <- rep(NA, 1000)
+  
+  cold_exp <- exp$Expression.Level[which(IND == "cold")]
+  cold_prob <- 1/log(cold_exp)
+  cold_prob <- cold_prob/sum(cold_prob)
+  pb <- txtProgressBar(1, 1000, style=3)
+  for(n in 1:1000){
+    
+    use <- sample(which(IND == "cold"), prob = cold_prob, size = 0.5*length(which(IND =="cold")), replace = FALSE)
+    
+    IND2 <- rep(NA, nrow(exp))
+    IND2[use] <- "cold"
+    IND2[which(exp$ID %in% dry[,1])] <- "dry"
+    genes_n <- as.character(exp$ID[which(IND2 == "cold")])
+    
+    test.i <- t.test(log(exp$Expression.Level) ~ IND2)
+    t_test_stats[n] <- test.i$statistic
+    
+    layout(matrix(1:4,ncol=2))
+    for(i in c(2,5)){
+      dat.i <- dat.test[which(is.finite(log(dat.test[,i]))==TRUE),]
+      rm <- which(!genes %in% genes_n)
+      rm_out <- which(dat.i[,1] %in% rm)
+      dat.i <- dat.i[-rm, ]
+      use <- which(dat.i[,1] %in% genes_n)
+      id <- rep('nonGE',nrow(dat.i))
+      id[use] <- 'GE'
+      dat.i <- log(dat.i[,i])
+      #dat.i <- dat.i[,i]
+      obs.i <- abs(mean(dat.i[use])-mean(dat.i[-use]))
+      len1 <- c()
+      for(j in 1:1000){
+        use.j <- sample(1:length(id), length(use), replace=TRUE)
+        met.j <- abs(mean(dat.i[use.j])-mean(dat.i[-use.j]))
+        len1 <- c(len1,met.j)
+      }
+      p.i <- round(length(which(len1>obs.i)),4)/j
+      if(i == 2){
+        pval_deg[n] <- p.i
+        non_ge_deg[n] <- exp(mean(dat.i[-use.j]))
+        ge_deg[n] <- exp(mean(dat.i[use.j]))
+      }
+      if(i == 5){
+        pval_eigen[n] <- p.i
+        non_ge_eigen[n] <- exp(mean(dat.i[-use.j]))
+        ge_eigen[n] <- exp(mean(dat.i[use.j]))
+      }
+      #boxplot(dat.i~id,main=paste0(colnames(dat.test)[i],' p value = ',p.i))
+    }
+    setTxtProgressBar(pb, n)
+  }
+  
+  quartz(width = 5, height = 5)
+  par(mar=c(2,4,1,0.2))
+  layout(matrix(1:2, ncol = 1))
+  boxplot(log(ge_deg),log(non_ge_deg), col = c("#2166ac","#92c5de"), ylab = "Degree (log)", names = c("eGxE", "non eGxE"), range = 0)
+  title(main = "Cold")
+  boxplot(log(ge_eigen),log(non_ge_eigen), col = c("#2166ac","#92c5de"), ylab = "Eigenvector centrality (log)", names = c("eGxE", "non eGxE"), range = 0)
+}

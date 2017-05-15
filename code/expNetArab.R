@@ -3,7 +3,7 @@ library(igraph)
 
 #global params
 doALL<-TRUE
-geneSet<- 'dry' #'cold' 
+geneSet<- 'cold' #'dry' 
 
 #data
 dat<-read.table('../data/Feltus_etal_AdditionalFile3_EdgeLists.txt', header=TRUE)
@@ -80,6 +80,7 @@ if(doALL==TRUE){
 	V_ge <- P
 	V_non_ge <- P
 	n_ge <- P
+	pb <- txtProgressBar(1, length(nets), style=3)
 	for(n in 1:length(nets)){
 		dat.graph<-dat[which(dat[,1]==nets[n]),2:3]
 		dat.graph[,1:2]<-apply(dat.graph[,1:2],2,as.character)
@@ -133,11 +134,12 @@ if(doALL==TRUE){
 			#hist(len1,ain=paste0(colnames(dat.test)[i],' p value = ',p.i),col='gray')
 			#abline(v=obs.i,col='red',lty=3,lwd=3)
 		}#end for i
+	  setTxtProgressBar(pb, n)
 		#dev.off()
 	}#end for n
 	dat.out <- data.frame(as.character(nets),E, P, V_ge, V_non_ge, n_ge)
 	colnames(dat.out)[c(1,6:9)] <- c("Network", "degree_pval", "betweenness_pval", "closeness_pval", "eigenvector_pval")
-	#write.csv(dat.out,file=paste0(geneSet,'_GILS.csv'))
+	#write.csv(dat.out[,1:9],file=paste0(geneSet,'_GILS.csv'))
 	
 	w <- n_ge[-1,"eigenvector"]/sum(n_ge[-1,"eigenvector"])
 	sum(V_ge[-1,"eigenvector"]*w)
