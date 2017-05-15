@@ -41,8 +41,8 @@ layout(matrix(1:4,ncol=2))
 for(i in 2:ncol(dat.test)){
 	dat.i<-dat.test[which(is.finite(log(dat.test[,i]))==TRUE),]
 	use<-which(dat.i[,1] %in% genes)
-	id<-rep('nonGE',nrow(dat.i))
-	id[use]<-'GE'
+	id<-rep('nonE',nrow(dat.i))
+	id[use]<-'E'
 	null_set.i <- which(dat.i[,1] %in% genes)
 	dat.i<-log(dat.i[,i])
 	#dat.i<-dat.i[,i]
