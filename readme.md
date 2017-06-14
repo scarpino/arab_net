@@ -1,5 +1,5 @@
 Contained are the code and data needed to re-create the analyses and figures in: <h4><a href="http://rspb.royalsocietypublishing.org/content/284/1856/20170914
-" target="_blank"><font color = "#b2182b">Des Marais et al. (in press)</font></a></h4>  If you use any of the code, figures, analyses, or novel ideas, please cite the article below-- there's a<a href="http://biorxiv.org/content/early/2016/10/30/080804" target="_blank"><font color = "#b2182b">pre-print</font></a> as well if you get stuck outside a paywall.  If you use any of the data, please cite the appropriate manuscript(s).
+" target="_blank"><font color = "#b2182b">Des Marais et al. (in press)</font></a></h4>  If you use any of the code, figures, analyses, or novel ideas, please cite the article below-- there's a <a href="http://biorxiv.org/content/early/2016/10/30/080804" target="_blank"><font color = "#b2182b">preprint</font></a> as well if you get stuck outside a paywall.  If you use any of the data, please cite the appropriate manuscript(s).
 
 *Citation* 
 
