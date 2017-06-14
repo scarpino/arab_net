@@ -1,7 +1,11 @@
-Contained are the code and data needed to re-create the analyses and figures in: <h4><a href="http://biorxiv.org/content/early/2016/10/30/080804
-" target="_blank"><font color = "#b2182b">Des Marais et al. (2016)</font></a></h4>  If you use any of the code, figures, analyses, or novel ideas, please cite the preprint below.  If you use any of the data, please cite the appropriate manuscript(s).
+Contained are the code and data needed to re-create the analyses and figures in: <h4><a href="http://rspb.royalsocietypublishing.org/content/284/1856/20170914
+" target="_blank"><font color = "#b2182b">Des Marais et al. (in press)</font></a></h4>  If you use any of the code, figures, analyses, or novel ideas, please cite the article below-- there's a print as well if you get stuck outside a paywall.  If you use any of the data, please cite the appropriate manuscript(s).
 
 *Citation* 
+
+Des Marais DL, Guerrero RF, Lasky JR, Scarpino SV. in press. Topological features of a gene co-expression network predict patterns of natural diversity in environmental response. Proceedings of the Royal Society B.
+
+*Preprint* 
 
 Des Marais, D. L., Guerrero, R., Lasky, J. R., & Scarpino, S. V. (2016). Topological features of gene regulatory networks predict patterns of natural diversity in environmental response. bioRxiv, 080804.
 
@@ -45,11 +49,11 @@ Hannah, M. A., Wiese, D., Freund, S., Fiehn, O., Heyer, A. G., & Hincha, D. K. (
 Bechtold, U., Penfold, C. A., Jenkins, D. J., Legaie, R., Moore, J. D., Lawson, T., ... & Hickman, R. (2016). Time-series transcriptomics reveals that AGAMOUS-LIKE22 links primary metabolism to developmental processes in drought-stressed Arabidopsis. The Plant Cell, TPC2015-00910.
 
 [comm_props_raw_21Jan16](http://biorxiv.org/content/early/2016/10/30/080804)
-Des Marais, D. L., Guerrero, R., Lasky, J. R., & Scarpino, S. V. (2016). Topological features of gene regulatory networks predict patterns of natural diversity in environmental response. bioRxiv, 080804.
+Des Marais DL, Guerrero RF, Lasky JR, Scarpino SV. in press. Topological features of a gene co-expression network predict patterns of natural diversity in environmental response. Proceedings of the Royal Society B.
 
 *Legal*
  
-The data aren't all ours, but we did write some of the code.  Obviously all code, data, etc. are provided without any guarantee about accuracy, quality, or the impact factor of the journal you can publish them in.  Please cite the appropriate paper for each data set and the appropriate paper for any internal code (e.g., if you use any R libraries). 
+The data aren't all ours, but we did write a lot of the code.  Obviously everything, e.g., code, data, etc., are provided without any guarantee about accuracy, quality, or the impact factor of the journal you can publish them in.  Please cite the appropriate paper for each data set and the appropriate paper for any internal code (e.g., if you use any R libraries). 
 
 *License* 
 
